@@ -7,8 +7,8 @@ let initialized = false;
 function normalizeFcmImageUrl(imageUrl?: string): string | undefined {
   if (!imageUrl) return undefined;
   if (/^https?:\/\//i.test(imageUrl)) return imageUrl;
-  if (imageUrl.startsWith("/")) return `https://nexora-news.onrender.com${imageUrl}`;
-  return `https://nexora-news.onrender.com/${imageUrl}`;
+  if (imageUrl.startsWith("/")) return `https://nexora-angola.nexoranews.blitz.cloud${imageUrl}`;
+  return `https://nexora-angola.nexoranews.blitz.cloud/${imageUrl}`;
 }
 
 
