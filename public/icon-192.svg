@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bgGrad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="100%" stop-color="#060C1D"/>
+    </linearGradient>
+    <linearGradient id="accentGrad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#CE1126"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="192" height="192" rx="42" fill="url(#bgGrad192)"/>
+  
+  <g>
+    <!-- Left Column -->
+    <path d="M 48 144 L 48 48 L 68 48 L 68 144 Z" fill="#FFFFFF"/>
+    <!-- Diagonal Dynamic Ribbon -->
+    <path d="M 68 48 L 124 144 L 144 144 L 88 48 Z" fill="url(#accentGrad192)"/>
+    <!-- Right Column -->
+    <path d="M 124 48 L 144 48 L 144 144 L 124 144 Z" fill="#FFFFFF"/>
+  </g>
+  
+  <circle cx="150" cy="42" r="8" fill="#EF4444"/>
+</svg>

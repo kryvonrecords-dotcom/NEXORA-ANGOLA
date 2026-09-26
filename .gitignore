@@ -1,0 +1,75 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.vscode/
+.idea/
+
+# Android / credenciais
+android/.gradle/
+android/build/
+android/app/build/
+android/app/google-services.json
+android/app/google-services.json.backup
+android/keystore.properties
+android/local.properties
+android/*.jks
+android/**/*.jks
+
+# Backups e arquivos temporários
+backups/
+android-backups/
+backup-identidade-nexora/
+android/backups/
+android/backups-ads/
+*.backup
+*.bak
+*.before*
+*.jks
+*.keystore
+
+# Chaves e dados sensíveis
+data/vapid_keys.json
+
+# Projeto Android — não publicar neste repositório web
+/android/
+/android-angola/
+/android-backups/
+
+# APK
+/public/*.apk
+
+# Dados/chaves locais
+/data/vapid_keys.json
+
+# Arquivos temporários
+Installing
+Running
+teste-storage.txt
+app-stats-route.txt
+
+# Arquivos grandes/backup que não fazem parte do deploy
+Nexora-News.apk
+nexora-news.zip
+server.ts.scheduler-final
+
+# Dados locais
+data/*.json
+
+# Backups de código
+**/*.before-*
+**/*.backup
+**/*.bak
+server/*.before-*
+
+# APK antigo do download-site
+download-site/*.apk
+
+# Backups de páginas
+src/pages/*.backup-adsterra
+
+# Logo de outra edição
+public/nexora-brasil.svg

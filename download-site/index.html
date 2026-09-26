@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nexora News — Baixar APK</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at top right, #123a78, transparent 35%),
+        linear-gradient(135deg, #07111f, #0b1f3a);
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    padding: 25px 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1479ff, #00c6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+/* HERO */
+
+.hero {
+    padding: 70px 0;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.badge {
+    display: inline-block;
+    padding: 9px 15px;
+    border-radius: 30px;
+    background: rgba(20,121,255,.18);
+    border: 1px solid rgba(70,150,255,.4);
+    color: #76b6ff;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1;
+    margin-bottom: 18px;
+}
+
+.blue {
+    color: #3d9cff;
+}
+
+.subtitle {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #b7c4d6;
+    max-width: 600px;
+}
+
+/* DOWNLOAD BUTTON */
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+    padding: 18px 28px;
+    background: linear-gradient(135deg, #1479ff, #00a8ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 14px;
+    font-weight: bold;
+    font-size: 17px;
+    box-shadow: 0 15px 40px rgba(0,120,255,.3);
+    transition: .25s;
+}
+
+.download-btn:hover {
+    transform: translateY(-3px);
+}
+
+.download-info {
+    margin-top: 15px;
+    color: #8da0b8;
+    font-size: 14px;
+}
+
+/* APP CARD */
+
+.app-card {
+    background: linear-gradient(
+        145deg,
+        rgba(24,48,82,.9),
+        rgba(10,22,42,.95)
+    );
+
+    border: 1px solid rgba(100,160,255,.2);
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.35);
+}
+
+.phone {
+    width: 220px;
+    height: 420px;
+    margin: auto;
+    border-radius: 30px;
+    padding: 10px;
+    background: #02060d;
+    border: 6px solid #182a45;
+}
+
+.phone-screen {
+    height: 100%;
+    border-radius: 20px;
+    padding: 18px;
+    background:
+        linear-gradient(180deg, #1464c0, #0b1b32);
+}
+
+.phone-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.news-card {
+    background: rgba(255,255,255,.08);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.news-card small {
+    color: #77b7ff;
+}
+
+.news-card h4 {
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
+/* ABOUT */
+
+.about {
+    padding: 70px 0;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.content-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 20px;
+    padding: 28px;
+    transition: .25s;
+}
+
+.content-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(70,150,255,.35);
+}
+
+.content-icon {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.content-card h3 {
+    margin-bottom: 12px;
+    color: white;
+}
+
+.content-card p {
+    color: #aebdce;
+    line-height: 1.7;
+}
+
+/* FEATURES */
+
+.features {
+    padding: 70px 0;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.feature {
+    background: linear-gradient(
+        145deg,
+        rgba(20,55,100,.55),
+        rgba(8,20,38,.8)
+    );
+    border: 1px solid rgba(80,150,255,.12);
+    padding: 24px;
+    border-radius: 18px;
+}
+
+.feature-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.feature h3 {
+    margin-bottom: 10px;
+}
+
+.feature p {
+    color: #aebdce;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* FAQ */
+
+.faq {
+    padding: 70px 0;
+}
+
+.faq-item {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    padding: 20px;
+}
+
+.faq-item h3 {
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.faq-item p {
+    color: #aebdce;
+    line-height: 1.7;
+}
+
+/* SECURITY */
+
+.security {
+    padding: 70px 0;
+}
+
+.security-box {
+    background: linear-gradient(
+        135deg,
+        rgba(15,80,150,.35),
+        rgba(8,25,45,.9)
+    );
+    border: 1px solid rgba(70,150,255,.2);
+    border-radius: 22px;
+    padding: 35px;
+}
+
+.security-box p {
+    color: #b7c8da;
+    line-height: 1.8;
+    margin-top: 15px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+
+.content-grid,
+.feature-grid {
+    grid-template-columns: 1fr;
+}
+
+}
+
+/* DETAILS */
+
+.details {
+    padding: 40px 0 80px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.info-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.info-card span {
+    display: block;
+    font-size: 11px;
+    color: #7f93aa;
+    margin-bottom: 8px;
+}
+
+.info-card strong {
+    font-size: 15px;
+}
+
+/* INSTALL */
+
+.install {
+    padding: 70px 0;
+}
+
+.section-title {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.section-text {
+    color: #aebdce;
+    margin-bottom: 30px;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.step {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    padding: 22px;
+    border-radius: 18px;
+}
+
+.number {
+    width: 35px;
+    height: 35px;
+    background: #1479ff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 30px 0;
+    color: #71839a;
+}
+
+@media (max-width: 800px) {
+
+.hero-grid {
+    grid-template-columns: 1fr;
+}
+
+.app-card {
+    display: none;
+}
+
+.info-grid,
+.steps {
+    grid-template-columns: 1fr 1fr;
+}
+
+}
+
+@media (max-width: 500px) {
+
+.info-grid,
+.steps {
+    grid-template-columns: 1fr;
+}
+
+.hero {
+    padding: 45px 0;
+}
+
+}
+</style>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1176232504939547"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+<div class="brand">
+
+<div class="logo">N</div>
+
+<div>NEXORA NEWS</div>
+
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<div class="hero-grid">
+
+<div>
+
+<div class="badge">
+📱 APLICATIVO OFICIAL
+</div>
+
+<h1>
+NEXORA <span class="blue">NEWS</span>
+</h1>
+
+<h2 style="font-size:28px;margin-bottom:18px;">
+Informação que importa.
+</h2>
+
+<p class="subtitle">
+
+Notícias e informação em um só lugar.
+Uma experiência moderna, rápida e pensada para Android.
+
+</p>
+
+<a class="download-btn"
+href="/NexoraNews-Release.apk"
+download>
+
+📥 Baixar APK
+
+</a>
+
+<div class="download-info">
+
+Download direto • Android • APK
+
+</div>
+
+</div>
+
+
+<div class="app-card">
+
+<div class="phone">
+
+<div class="phone-screen">
+
+<div class="phone-title">
+NEXORA NEWS
+</div>
+
+<div class="news-card">
+
+<small>NOTÍCIAS</small>
+
+<h4>
+Informação atualizada para você.
+</h4>
+
+</div>
+
+<div class="news-card">
+
+<small>TECNOLOGIA</small>
+
+<h4>
+As últimas novidades do mundo digital.
+</h4>
+
+</div>
+
+<div class="news-card">
+
+<small>ANGOLA</small>
+
+<h4>
+Notícias importantes em um só lugar.
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- SOBRE -->
+
+<section class="about">
+
+<h2 class="section-title">
+📱 Sobre o Nexora News
+</h2>
+
+<p class="section-text">
+Uma plataforma criada para tornar o acesso à informação mais simples, moderno e rápido.
+</p>
+
+<div class="content-grid">
+
+<div class="content-card">
+
+<div class="content-icon">📰</div>
+
+<h3>Informação em um só lugar</h3>
+
+<p>
+O Nexora News reúne conteúdos e notícias para que você possa acompanhar informações importantes através de uma experiência simples e organizada.
+</p>
+
+</div>
+
+<div class="content-card">
+
+<div class="content-icon">⚡</div>
+
+<h3>Experiência rápida</h3>
+
+<p>
+O aplicativo foi desenvolvido para oferecer uma navegação prática e uma experiência adaptada aos dispositivos Android.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FUNCIONALIDADES -->
+
+<section class="features">
+
+<h2 class="section-title">
+✨ Funcionalidades do aplicativo
+</h2>
+
+<p class="section-text">
+Conheça alguns recursos disponíveis no Nexora News.
+</p>
+
+<div class="feature-grid">
+
+<div class="feature">
+
+<div class="feature-icon">📰</div>
+
+<h3>Notícias</h3>
+
+<p>
+Acompanhe conteúdos e informações organizadas dentro do aplicativo.
+</p>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">📂</div>
+
+<h3>Categorias</h3>
+
+<p>
+Explore conteúdos através de diferentes categorias.
+</p>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">🔔</div>
+
+<h3>Notificações</h3>
+
+<p>
+Receba notificações quando novos conteúdos importantes estiverem disponíveis.
+</p>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">🔍</div>
+
+<h3>Pesquisa</h3>
+
+<p>
+Encontre conteúdos e notícias de forma mais rápida.
+</p>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">📱</div>
+
+<h3>Android</h3>
+
+<p>
+Uma experiência pensada especialmente para dispositivos Android.
+</p>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">🔄</div>
+
+<h3>Atualizações</h3>
+
+<p>
+O Nexora News pode receber melhorias e novas funcionalidades ao longo do tempo.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- O QUE ENCONTRA -->
+
+<section class="about">
+
+<h2 class="section-title">
+📰 O que você encontra no aplicativo
+</h2>
+
+<div class="content-grid">
+
+<div class="content-card">
+
+<div class="content-icon">🌍</div>
+
+<h3>Informações atuais</h3>
+
+<p>
+Conteúdos organizados para facilitar o acompanhamento das informações disponíveis.
+</p>
+
+</div>
+
+<div class="content-card">
+
+<div class="content-icon">📖</div>
+
+<h3>Leitura simples</h3>
+
+<p>
+Uma interface desenvolvida para proporcionar uma experiência de leitura mais confortável.
+</p>
+
+</div>
+
+<div class="content-card">
+
+<div class="content-icon">⭐</div>
+
+<h3>Conteúdo organizado</h3>
+
+<p>
+Navegue pelas diferentes áreas e encontre os conteúdos de seu interesse.
+</p>
+
+</div>
+
+<div class="content-card">
+
+<div class="content-icon">🚀</div>
+
+<h3>Experiência moderna</h3>
+
+<p>
+Um aplicativo que continua evoluindo através de melhorias e atualizações.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- INSTALAR E ATUALIZAR -->
+
+<section class="about">
+
+<h2 class="section-title">
+📲 Como instalar e atualizar
+</h2>
+
+<div class="content-grid">
+
+<div class="content-card">
+
+<div class="content-icon">📥</div>
+
+<h3>Instalar o aplicativo</h3>
+
+<p>
+Baixe o arquivo APK através do botão oficial deste site. Depois abra o arquivo baixado e siga as instruções do Android para concluir a instalação.
+</p>
+
+</div>
+
+<div class="content-card">
+
+<div class="content-icon">🔄</div>
+
+<h3>Atualizar</h3>
+
+<p>
+Quando uma nova versão estiver disponível, volte a este site e baixe a versão mais recente do Nexora News.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section class="faq">
+
+<h2 class="section-title">
+❓ Perguntas frequentes
+</h2>
+
+<div class="faq-item">
+
+<h3>O Nexora News é gratuito?</h3>
+
+<p>
+O download do aplicativo disponibilizado neste site é gratuito.
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>Onde posso baixar o aplicativo?</h3>
+
+<p>
+Você pode baixar o APK através do botão oficial disponível nesta página.
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>Como instalo o APK?</h3>
+
+<p>
+Depois de baixar o arquivo, abra-o no seu dispositivo Android e siga as instruções de instalação exibidas pelo sistema.
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>Como atualizo o aplicativo?</h3>
+
+<p>
+Visite este site e baixe a versão mais recente disponível.
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>Este é o site oficial?</h3>
+
+<p>
+Este site foi criado para disponibilizar o download do aplicativo Nexora News.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- PRIVACIDADE -->
+
+<section class="security">
+
+<div class="security-box">
+
+<h2>
+🔒 Privacidade e segurança
+</h2>
+
+<p>
+A Nexora News valoriza a privacidade dos seus usuários. Recomendamos que o download do aplicativo seja realizado apenas através das fontes oficiais disponibilizadas pela Nexora News.
+</p>
+
+<p>
+Para mais informações sobre o tratamento de informações e privacidade, consulte a nossa Política de Privacidade.
+</p>
+
+<br>
+
+<a href="/privacy.html" class="download-btn">
+🔒 Ler Política de Privacidade
+</a>
+
+</div>
+
+</section>
+
+
+<section class="details">
+
+<div class="info-grid">
+
+<div class="info-card">
+
+<span>PACOTE</span>
+
+<strong>
+com.nexoranews.app
+</strong>
+
+</div>
+
+<div class="info-card">
+
+<span>PLATAFORMA</span>
+
+<strong>
+Android
+</strong>
+
+</div>
+
+<div class="info-card">
+
+<span>FORMATO</span>
+
+<strong>
+APK
+</strong>
+
+</div>
+
+<div class="info-card">
+
+<span>VERSÃO</span>
+
+<strong>
+Versão atual
+</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="install">
+
+<h2 class="section-title">
+
+Como instalar
+
+</h2>
+
+<p class="section-text">
+
+Instale o Nexora News no seu dispositivo Android.
+
+</p>
+
+
+<div class="steps">
+
+<div class="step">
+
+<div class="number">1</div>
+
+<strong>Baixar</strong>
+
+<p>
+Toque em Baixar APK.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="number">2</div>
+
+<strong>Abrir</strong>
+
+<p>
+Abra o arquivo baixado.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="number">3</div>
+
+<strong>Permitir</strong>
+
+<p>
+Se necessário, permita a instalação.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="number">4</div>
+
+<strong>Instalar</strong>
+
+<p>
+Toque em Instalar.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<div class="brand">
+
+<div class="logo">N</div>
+
+<div>
+
+<strong>NEXORA NEWS</strong>
+
+<br>
+
+<small>
+Informação que importa.
+</small>
+
+</div>
+
+</div>
+
+<br><br>
+
+<div style="display:flex;gap:18px;flex-wrap:wrap;">
+<a href="/terms.html" style="color:#8fbfff;">Termos de Uso</a>
+<a href="/privacy.html" style="color:#8fbfff;">Política de Privacidade</a>
+</div>
+
+<br>
+
+<div>
+© 2026 Nexora News. Todos os direitos reservados.
+</div>
+
+</footer>
+
+</div>
+
+</body>
+</html>

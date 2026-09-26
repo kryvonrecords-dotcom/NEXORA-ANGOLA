@@ -1,0 +1,6 @@
+{
+  "name": "Nexora News",
+  "description": "Nexora News - Jornalismo independente, notícias em tempo real, economia, tecnologia e desporto.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

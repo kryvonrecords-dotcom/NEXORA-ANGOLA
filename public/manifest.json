@@ -1,0 +1,65 @@
+{
+  "name": "Nexora Angola",
+  "short_name": "Nexora Angola",
+  "description": "Nexora Angola - Jornalismo independente em tempo real com apuração rigorosa, política, economia e desporto.",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "pt",
+  "dir": "ltr",
+  "categories": ["news", "magazines", "productivity"],
+  "icons": [
+    {
+      "src": "/app-cover.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/app-cover.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Últimas Notícias",
+      "short_name": "Últimas",
+      "description": "Veja as notícias mais recentes de Angola e do mundo",
+      "url": "/#latest",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Ao Vivo & Urgentes",
+      "short_name": "Ao Vivo",
+      "description": "Acompanhe a cobertura de última hora em direto",
+      "url": "/?filter=breaking",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Pesquisar Notícias",
+      "short_name": "Pesquisa",
+      "description": "Pesquise por temas, tópicos ou editorias",
+      "url": "/?search=open",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="50%" stop-color="#111C3A"/>
+      <stop offset="100%" stop-color="#060C1D"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#CE1126"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#CE1126" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  
+  <!-- Rounded App Icon Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  <rect width="504" height="504" x="4" y="4" rx="108" fill="none" stroke="#1E293B" stroke-width="4"/>
+  
+  <!-- Stylized Modern 'N' Logo for Nexora Angola -->
+  <g filter="url(#glow)">
+    <!-- Left Column -->
+    <path d="M 128 384 L 128 128 L 184 128 L 184 384 Z" fill="#FFFFFF"/>
+    
+    <!-- Diagonal Dynamic Ribbon -->
+    <path d="M 184 128 L 328 384 L 384 384 L 240 128 Z" fill="url(#accentGrad)"/>
+    
+    <!-- Right Column -->
+    <path d="M 328 128 L 384 128 L 384 384 L 328 384 Z" fill="#FFFFFF"/>
+  </g>
+  
+  <!-- Live Signal / Pulse Dot on Top Right -->
+  <circle cx="396" cy="116" r="20" fill="#EF4444"/>
+  <circle cx="396" cy="116" r="28" fill="none" stroke="#EF4444" stroke-width="4" opacity="0.6"/>
+</svg>

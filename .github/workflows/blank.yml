@@ -1,0 +1,109 @@
+name: Deploy Nexora News
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Nexora News
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Verificar ZIP
+        run: |
+          if [ ! -f "nexora-news.zip" ]; then
+            echo "ERRO: nexora-news.zip não encontrado."
+            exit 1
+          fi
+
+          echo "ZIP encontrado:"
+          ls -lh nexora-news.zip
+
+      - name: Extrair projeto
+        run: |
+          mkdir -p project
+          unzip -q nexora-news.zip -d project
+
+          echo "Conteúdo extraído:"
+          find project -maxdepth 3 -type f | sort | head -100
+
+      - name: Encontrar package.json
+        run: |
+          PACKAGE=$(find project -name "package.json" -type f | head -1)
+
+          if [ -z "$PACKAGE" ]; then
+            echo "ERRO: package.json não encontrado dentro do ZIP."
+            exit 1
+          fi
+
+          echo "package.json encontrado em:"
+          echo "$PACKAGE"
+
+          PROJECT_DIR=$(dirname "$PACKAGE")
+          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Instalar Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Instalar dependências
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: bun install --frozen-lockfile
+
+      - name: Criar aplicação web
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: bun run build
+
+      - name: Verificar build
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "ERRO: pasta dist não foi criada."
+            exit 1
+          fi
+
+          echo "Build concluído:"
+          find dist -maxdepth 2 -type f | sort | head -100
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar arquivos para publicação
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.PROJECT_DIR }}/dist
+
+  deploy:
+    name: Publicar Nexora News
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
