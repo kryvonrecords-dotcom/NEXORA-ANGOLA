@@ -10,6 +10,7 @@ import { generateToken, requireAdmin, AuthenticatedRequest } from './auth';
 import { getVapidPublicKey, sendWebPushToAll } from './webPush';
 import { sendFcmToAll } from './fcm';
 import { importRSSArticles } from './rss';
+import { importRNAArticles } from './rna';
 
 const router = express.Router();
 
@@ -92,244 +93,9 @@ function getNewsCategoryId(categorySlug: string): string {
   return category?.id || 'cat-mundo';
 }
 
-export async function importNewsDataArticles(limit = 10): Promise<{
-  fetched: number;
-  imported: number;
-  skipped: number;
-  errors: number;
-}> {
-  const newsData = await fetchNewsDataNews({
-    language: 'pt',
-    country: 'ao',
-    size: Math.max(limit, 1)
-  });
-
-  const articles = Array.isArray(newsData?.results)
-    ? newsData.results.slice(0, Math.max(limit, 1))
-    : [];
-
-  const existingNews = db.getAllNews();
-
-  let imported = 0;
-  let skipped = 0;
-  let errors = 0;
-
-  for (const article of articles) {
-    try {
-      const title = String(article?.title || '').trim();
-
-      if (!title) {
-        skipped++;
-        continue;
-      }
-
-      const rawSourceUrl = String(article?.link || '').trim();
-      const sourceUrl = /^https?:\/\//i.test(rawSourceUrl)
-        ? rawSourceUrl
-        : rawSourceUrl
-          ? `https://${rawSourceUrl}`
-          : '';
-      const slugBase = slugifyNewsTitle(title);
-
-      if (!slugBase) {
-        skipped++;
-        continue;
-      }
-
-      const duplicate = existingNews.some(n =>
-        n.slug.toLowerCase() === slugBase.toLowerCase() ||
-        (sourceUrl && n.content.includes(sourceUrl))
-      );
-
-      if (duplicate) {
-        skipped++;
-        continue;
-      }
-
-      const categorySlug = detectNewsCategory(article);
-      const categoryId = getNewsCategoryId(categorySlug);
-
-      const description = String(
-        article?.description ||
-        article?.content ||
-        title
-      ).trim();
-
-      const articleContent = String(
-        article?.content ||
-        article?.description ||
-        ''
-      ).trim();
-
-      const sourceName = String(
-        article?.source_name ||
-        article?.source_id ||
-        article?.source ||
-        ''
-      ).trim();
-
-      const articleCategory = String(
-        article?.category ||
-        categorySlug ||
-        ''
-      ).trim();
-
-      const keywords = Array.isArray(article?.keywords)
-        ? article.keywords
-            .filter(Boolean)
-            .map((k: any) => String(k).trim())
-            .slice(0, 15)
-        : [];
-
-      const articleKeywords = keywords.length
-        ? keywords.join(', ')
-        : '';
-
-      const contentSections = [
-        `<h2>${title}</h2>`,
-        `<p>${description}</p>`,
-        articleContent && articleContent !== description
-          ? `<p>${articleContent}</p>`
-          : '',
-        sourceName
-          ? `<p><strong>Fonte:</strong> ${sourceName}</p>`
-          : '',
-        articleCategory
-          ? `<p><strong>Categoria:</strong> ${articleCategory}</p>`
-          : '',
-        articleKeywords
-          ? `<p><strong>Palavras-chave:</strong> ${articleKeywords}</p>`
-          : '',
-        sourceUrl
-          ? `<p><strong>Leia a notícia completa na fonte original:</strong> <a href="${sourceUrl}" target="_blank" rel="noopener noreferrer">Acessar fonte original</a></p>`
-          : ''
-      ].filter(Boolean);
-
-      const content = contentSections.join('\n');
-
-      let imageUrl = String(
-        article?.image_url ||
-        article?.image ||
-        ''
-      ).trim();
-
-      if (!imageUrl) {
-        try {
-          imageUrl = await fetchPixabayImage(title) || '';
-        } catch {
-          imageUrl = '';
-        }
-      }
-
-      if (!imageUrl) {
-        imageUrl = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80';
-      }
-
-      const tags = keywords.length
-        ? keywords
-        : title
-            .split(/\s+/)
-            .map(word => word.replace(/[^\p{L}\p{N}-]/gu, '').trim())
-            .filter(word => word.length >= 4)
-            .slice(0, 8);
-
-      const publishedAt = article?.pubDate
-        ? new Date(article.pubDate).toISOString()
-        : new Date().toISOString();
-
-      const created = db.createNewsLocalOnly({
-        title,
-        slug: slugBase,
-        excerpt: description.substring(0, 500),
-        content,
-        featuredImage: imageUrl,
-        featuredImageCaption: 'Imagem ilustrativa',
-        galleryImages: [],
-        categoryId,
-        authorId: 'nexora-automation',
-        authorName: 'Redação Nexora',
-        authorRole: 'Automação',
-        tags,
-        status: 'published',
-        isBreaking: false,
-        isHero: false,
-        isSecondaryHero: false,
-        publishedAt,
-        readTimeMinutes: 1
-      });
-
-      existingNews.push(created);
-
-      const notification = db.createNotificationLocalOnly({
-        title: created.isBreaking ? `🔴 URGENTE: ${created.title}` : `📰 ${created.title}`,
-        body: created.excerpt || 'Toque para ler a notícia completa no Nexora News.',
-        newsId: created.id,
-        newsSlug: created.slug,
-        categoryName: created.categoryName || 'Geral',
-        imageUrl: created.featuredImage,
-        isBreaking: created.isBreaking,
-        type: created.isBreaking ? 'breaking_news' : 'new_article',
-        clickUrl: `/noticia/${created.slug}`
-      });
-
-      sendFcmToAll(notification).catch(e =>
-        console.error('[NEXORA AUTOMATION] FCM dispatch error:', e)
-      );
-
-      imported++;
-    } catch (error) {
-      console.error('[NEXORA AUTOMATION] Erro ao importar notícia:', error);
-      errors++;
-    }
-  }
-
-  return {
-    fetched: articles.length,
-    imported,
-    skipped,
-    errors
-  };
-}
-
 // -------------------------------------------------------------
 // NEWS DATA.IO - FONTE AUTOMÁTICA DE NOTÍCIAS
 // -------------------------------------------------------------
-async function fetchNewsDataNews(params: {
-  language?: string;
-  country?: string;
-  category?: string;
-  size?: number;
-}) {
-  const apiKey = process.env.NEWSDATA_API_KEY;
-
-  if (!apiKey) {
-    return { status: "success", results: [] };
-  }
-
-  const url = new URL('https://newsdata.io/api/1/latest');
-  url.searchParams.set('apikey', apiKey);
-  url.searchParams.set('language', params.language || 'pt');
-  url.searchParams.set('size', String(params.size || 10));
-
-  if (params.country) url.searchParams.set('country', params.country);
-  if (params.category) url.searchParams.set('category', params.category);
-
-  const response = await fetch(url.toString());
-
-  if (!response.ok) {
-    throw new Error(`NewsData.io HTTP ${response.status}`);
-  }
-
-  const data = await response.json();
-
-  if (data?.status === 'error') {
-    throw new Error(data?.results?.message || 'Erro na NewsData.io');
-  }
-
-  return data;
-}
-
-
 // Lazy Gemini AI initialization
 let aiClient: GoogleGenAI | null = null;
 function getGeminiClient(): GoogleGenAI | null {
@@ -826,11 +592,14 @@ router.post('/upload', requireAdmin, upload.any(), handleSingleUpload);
 
 router.post('/admin/automation/test-news-import', requireAdmin, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
-    const result = await importNewsDataArticles(1);
+    const rssResult = await importRSSArticles(5);
+    const rnaResult = await importRNAArticles(5);
+
     res.json({
       success: true,
-      message: 'Teste de importação concluído.',
-      result
+      message: 'Teste de importação RSS + RNA concluído.',
+      rss: rssResult,
+      rna: rnaResult
     });
   } catch (error) {
     console.error('[NEXORA AUTOMATION TEST]', error);
@@ -2187,30 +1956,16 @@ router.get('/automation/news', async (req: Request, res: Response): Promise<void
   newsAutomationRunning = true;
 
   try {
-    let newsDataResult = {
-      fetched: 0,
-      imported: 0,
-      skipped: 0,
-      errors: 0
-    };
-
-    try {
-      newsDataResult = await importNewsDataArticles(1);
-    } catch (error) {
-      console.error('[NEXORA AUTOMATION] NewsData indisponível, continuando com RSS:', error);
-      newsDataResult.errors = 1;
-    }
-
-    const remainingSlots = Math.max(0, 1 - newsDataResult.imported);
-    const rssResult = await importRSSArticles(remainingSlots);
+    const rssResult = await importRSSArticles(5);
+    const rnaResult = await importRNAArticles(5);
 
     const runTime = new Date().toISOString();
 
     db.updateSettingsLocalOnly({
       newsAutomationLastRun: runTime,
       newsAutomationLastResult: JSON.stringify({
-        newsData: newsDataResult,
-        rss: rssResult
+        rss: rssResult,
+        rna: rnaResult
       })
     });
 
@@ -2218,8 +1973,8 @@ router.get('/automation/news', async (req: Request, res: Response): Promise<void
       success: true,
       skipped: false,
       lastRun: runTime,
-      newsData: newsDataResult,
-      rss: rssResult
+      rss: rssResult,
+      rna: rnaResult
     });
   } catch (error) {
     console.error('[NEXORA AUTOMATION] Erro na rota automática:', error);
