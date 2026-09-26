@@ -100,6 +100,7 @@ export async function importNewsDataArticles(limit = 10): Promise<{
 }> {
   const newsData = await fetchNewsDataNews({
     language: 'pt',
+    country: 'ao',
     size: Math.max(limit, 1)
   });
 
